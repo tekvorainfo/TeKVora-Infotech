@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  role         String   @default("student")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  duration    String
+  skills      String
+  type        String   @default("Paid")
+  instructor  String?
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+}
+
+model Internship {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  duration    String
+  mode        String
+  certificate Boolean  @default(true)
+  skills      String
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+}
+
+model JobPosting {
+  id          String   @id @default(cuid())
+  title       String
+  company     String
+  location    String
+  description String
+  skills      String
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  createdAt DateTime @default(now())
+}
